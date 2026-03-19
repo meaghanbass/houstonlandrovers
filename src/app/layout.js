@@ -11,6 +11,7 @@ const barlowCondensed = Barlow_Condensed({
 export const metadata = {
   title: "Houston Land Rovers",
   description: "",
+  themeColor: "#616c62",
 };
 
 export default function RootLayout({ children }) {

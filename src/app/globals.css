@@ -38,7 +38,8 @@ h3 {
 }
 
 p {
-  @apply font-mono text-neutral-600;
+  font-family: var(--font-mono);
+  color: var(--color-neutral-600);
 }
 
 a.link {

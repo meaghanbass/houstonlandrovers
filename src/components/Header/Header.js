@@ -106,7 +106,7 @@ const Header = () => {
             onClick={() => setRegistrationOpen(true)}
             className={`shrink-0 ${desktopNavButtonClass}`}
           >
-            Registration
+            Register
           </button>
 
           <button
@@ -262,14 +262,10 @@ const Header = () => {
           }`}
           aria-label="Mobile navigation"
         >
-          <div className="flex items-center justify-between border-b border-neutral-100 px-4 py-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-neutral-500">
-              Menu
-            </span>
-
+          <div className="flex items-center justify-end border-b border-neutral-100 px-4 py-3">
             <button
               type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-md text-neutral-900"
+              className="flex h-10 w-10 items-center justify-center cursor-pointer"
               onClick={() => setMenuOpen(false)}
               aria-label="Close menu"
             >

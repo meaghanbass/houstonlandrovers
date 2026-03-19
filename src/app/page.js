@@ -49,9 +49,9 @@ export default function Home() {
             <Image
               src="/pexels-esmihel-19721321-2.jpg"
               alt="Houston Land Rovers"
-              className="w-full h-auto"
+              className="w-full h-[400px] object-cover"
               width={500}
-              height={500}
+              height={400}
             />
           </div>
         </div>
