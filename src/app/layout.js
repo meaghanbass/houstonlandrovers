@@ -1,4 +1,5 @@
 import { Barlow_Condensed } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/Header/Header";
 import "./globals.css";
 
@@ -11,7 +12,6 @@ const barlowCondensed = Barlow_Condensed({
 export const metadata = {
   title: "Houston Land Rovers",
   description: "",
-  themeColor: "#616c62",
 };
 
 export default function RootLayout({ children }) {
@@ -20,7 +20,10 @@ export default function RootLayout({ children }) {
       <body className={`${barlowCondensed.variable} antialiased`}>
         <Header />
 
-        <main>{children}</main>
+        <main>
+          {children}
+          <Analytics />
+        </main>
       </body>
     </html>
   );
