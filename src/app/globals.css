@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --keswick-green-dark: #616c62;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+}
+
+h1 {
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  font-size: 70px;
+  line-height: 1.2;
+
+  @media (min-width: 768px) {
+    font-size: 100px;
+  }
+}
+
+h2 {
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 1.2;
+}
+
+h3 {
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 1.2;
+}
+
+p {
+  @apply font-mono text-neutral-600;
+}
+
+a.link {
+  text-decoration: underline;
+  color: var(--keswick-green-dark);
+}
