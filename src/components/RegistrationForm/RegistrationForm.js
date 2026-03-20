@@ -113,7 +113,7 @@ const RegistrationForm = ({ idPrefix = "", className = "" }) => {
         id={pid("heading")}
         className={idPrefix ? "mb-6 text-lg font-bold md:text-2xl" : ""}
       >
-        Houston Land Rovers Membership Registration
+        Membership Registration
       </h2>
 
       <form

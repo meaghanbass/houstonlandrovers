@@ -180,7 +180,7 @@ const Header = () => {
             <div className="overflow-y-auto overscroll-contain px-4 pb-6 pt-2 md:px-8 md:pb-8">
               <RegistrationForm
                 idPrefix="header-reg-"
-                className="scroll-mt-0 p-0"
+                className="scroll-mt-0 p-0 max-h-[min(90vh,44rem)]"
               />
             </div>
           </div>
