@@ -138,7 +138,7 @@ const Header = () => {
         id="registration-dialog"
         ariaLabelledBy="header-reg-heading"
         backdropAriaLabel="Close registration"
-        panelClassName="max-h-[min(90vh,44rem)] max-w-2xl"
+        panelClassName="max-h-[min(90vh,40rem)] max-w-2xl"
       >
         <RegistrationForm idPrefix="header-reg-" />
       </Modal>
