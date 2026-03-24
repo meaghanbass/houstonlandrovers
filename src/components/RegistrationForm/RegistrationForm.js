@@ -108,13 +108,10 @@ const RegistrationForm = ({ idPrefix = "", className = "" }) => {
   const err = (name) => clientErrors[name] || fieldMessages(state.errors, name);
 
   return (
-    <div ref={formWrapRef} className={className || "scroll-mt-24 p-20"}>
-      <h2
-        id={pid("heading")}
-        className={idPrefix ? "mb-6 text-lg font-bold md:text-2xl" : ""}
-      >
+    <div ref={formWrapRef} className={className}>
+      <h3 id={pid("heading")} className="mb-6">
         Membership Registration
-      </h2>
+      </h3>
 
       <form
         noValidate

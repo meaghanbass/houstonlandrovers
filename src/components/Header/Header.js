@@ -140,10 +140,7 @@ const Header = () => {
         backdropAriaLabel="Close registration"
         panelClassName="max-h-[min(90vh,44rem)] max-w-2xl"
       >
-        <RegistrationForm
-          idPrefix="header-reg-"
-          className="max-h-[min(60vh,44rem)] scroll-mt-0 p-0"
-        />
+        <RegistrationForm idPrefix="header-reg-" />
       </Modal>
 
       <Modal
@@ -154,10 +151,7 @@ const Header = () => {
         backdropAriaLabel="Close contact form"
         panelClassName="max-h-[min(90vh,36rem)] max-w-lg"
       >
-        <ContactForm
-          idPrefix="header-contact-"
-          className="scroll-mt-0 p-0"
-        />
+        <ContactForm idPrefix="header-contact-" className="scroll-mt-0 p-0" />
       </Modal>
 
       {/* Mobile menu */}

@@ -80,13 +80,10 @@ export default function ContactForm({ idPrefix = "", className = "" }) {
     state.errors?.getFieldErrors?.("message")?.[0]?.message;
 
   return (
-    <div ref={formWrapRef} className={className || "scroll-mt-24 p-20"}>
-      <h2
-        id={pid("heading")}
-        className={idPrefix ? "mb-6 text-lg font-bold md:text-2xl" : ""}
-      >
+    <div ref={formWrapRef} className={className}>
+      <h3 id={pid("heading")} className="mb-6">
         Contact us
-      </h2>
+      </h3>
 
       <form noValidate onSubmit={onSubmit} className="flex flex-col gap-4">
         <input type="hidden" name="_subject" value="HLR — Contact form" />

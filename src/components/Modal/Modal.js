@@ -62,23 +62,21 @@ export default function Modal({
         onClick={onClose}
         aria-label={backdropAriaLabel}
       />
+
       <div
         className={`relative z-10 flex w-full flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-xl ${panelClassName}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex shrink-0 items-center justify-end border-b border-neutral-100 px-2 py-2">
-          <button
-            type="button"
-            onClick={onClose}
-            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
-            aria-label="Close"
-          >
-            <CloseIcon />
-          </button>
-        </div>
-        <div
-          className={`overflow-y-auto overscroll-contain px-4 pb-6 pt-2 md:px-8 md:pb-8 ${contentClassName}`}
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-4 right-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
+          aria-label="Close"
         >
+          <CloseIcon />
+        </button>
+
+        <div className={`overflow-y-auto p-6 md:p-8 ${contentClassName}`}>
           {children}
         </div>
       </div>
