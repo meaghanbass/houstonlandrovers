@@ -88,11 +88,14 @@ const onlineParts = [
     name: "Mudstuff",
     url: "https://www.mudstuff.co.uk",
   },
-  // {
-  //   name: "",
-  //   url: "",
-  // },
 ];
+
+// const otherInformation = [
+//   {
+//     name: "Original Land Rover Body Colors",
+//     url: "https://www.houstonlandrovers.com",
+//   },
+// ];
 
 export default function OwnerResourcesPage() {
   return (
@@ -101,7 +104,7 @@ export default function OwnerResourcesPage() {
 
       <h3 className="mt-8 mb-4">Local Shops, Services, & Restorations</h3>
 
-      {localShops.map((shop) => (
+      {localShops?.map((shop) => (
         <p key={shop.name} className="mb-2">
           <a
             className="link"
@@ -116,7 +119,7 @@ export default function OwnerResourcesPage() {
 
       <h3 className="mt-8 mb-4">Online Parts & Accessories</h3>
 
-      {onlineParts.map((part) => (
+      {onlineParts?.map((part) => (
         <p key={part.name} className="mb-2">
           <a
             className="link"
@@ -128,6 +131,21 @@ export default function OwnerResourcesPage() {
           </a>
         </p>
       ))}
+
+      {/* <h3 className="mt-8 mb-4">Other Information</h3> */}
+
+      {/* {otherInformation?.map((info) => (
+        <p key={info.name} className="mb-2">
+          <a
+            className="link"
+            href={info.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {info.name}
+          </a>
+        </p>
+      ))} */}
     </div>
   );
 }

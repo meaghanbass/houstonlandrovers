@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import RegistrationForm from "@/components/RegistrationForm/RegistrationForm";
 import ContactForm from "@/components/ContactForm/ContactForm";
+import Modal from "@/components/Modal/Modal";
 import Logo from "@/components/Logo/Logo";
 
 const navLinks = [
@@ -53,11 +54,7 @@ const Header = () => {
 
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === "Escape") {
-        setRegistrationOpen(false);
-        setContactOpen(false);
-        setMenuOpen(false);
-      }
+      if (e.key === "Escape") setMenuOpen(false);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -135,109 +132,33 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Registration modal */}
-      {registrationOpen && (
-        <div
-          className="fixed inset-0 z-200 flex items-center justify-center p-4 md:p-6"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="header-reg-heading"
-          id="registration-dialog"
-        >
-          <button
-            type="button"
-            className="absolute inset-0 bg-black/50 cursor-pointer"
-            onClick={() => setRegistrationOpen(false)}
-            aria-label="Close registration"
-          />
-          <div
-            className="relative z-10 flex max-h-[min(90vh,44rem)] w-full max-w-2xl flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex shrink-0 items-center justify-end border-b border-neutral-100 px-2 py-2">
-              <button
-                type="button"
-                onClick={() => setRegistrationOpen(false)}
-                className="flex h-10 w-10 items-center justify-center rounded-md text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 cursor-pointer"
-                aria-label="Close"
-              >
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  aria-hidden
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18 18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div className="overflow-y-auto overscroll-contain px-4 pb-6 pt-2 md:px-8 md:pb-8">
-              <RegistrationForm
-                idPrefix="header-reg-"
-                className="scroll-mt-0 p-0 max-h-[min(60vh,44rem)]"
-              />
-            </div>
-          </div>
-        </div>
-      )}
+      <Modal
+        open={registrationOpen}
+        onClose={() => setRegistrationOpen(false)}
+        id="registration-dialog"
+        ariaLabelledBy="header-reg-heading"
+        backdropAriaLabel="Close registration"
+        panelClassName="max-h-[min(90vh,44rem)] max-w-2xl"
+      >
+        <RegistrationForm
+          idPrefix="header-reg-"
+          className="max-h-[min(60vh,44rem)] scroll-mt-0 p-0"
+        />
+      </Modal>
 
-      {/* Contact modal */}
-      {contactOpen && (
-        <div
-          className="fixed inset-0 z-200 flex items-center justify-center p-4 md:p-6"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="header-contact-heading"
-          id="contact-dialog"
-        >
-          <button
-            type="button"
-            className="absolute inset-0 cursor-pointer bg-black/50"
-            onClick={() => setContactOpen(false)}
-            aria-label="Close contact form"
-          />
-          <div
-            className="relative z-10 flex max-h-[min(90vh,36rem)] w-full max-w-lg flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex shrink-0 items-center justify-end border-b border-neutral-100 px-2 py-2">
-              <button
-                type="button"
-                onClick={() => setContactOpen(false)}
-                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
-                aria-label="Close"
-              >
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  aria-hidden
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18 18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div className="overflow-y-auto overscroll-contain px-4 pb-6 pt-2 md:px-8 md:pb-8">
-              <ContactForm
-                idPrefix="header-contact-"
-                className="scroll-mt-0 p-0"
-              />
-            </div>
-          </div>
-        </div>
-      )}
+      <Modal
+        open={contactOpen}
+        onClose={() => setContactOpen(false)}
+        id="contact-dialog"
+        ariaLabelledBy="header-contact-heading"
+        backdropAriaLabel="Close contact form"
+        panelClassName="max-h-[min(90vh,36rem)] max-w-lg"
+      >
+        <ContactForm
+          idPrefix="header-contact-"
+          className="scroll-mt-0 p-0"
+        />
+      </Modal>
 
       {/* Mobile menu */}
       <div
