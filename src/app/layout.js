@@ -13,13 +13,16 @@ const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 
+const siteDescription =
+  "Houston-area club for Land Rover owners — trail runs, meetups, tech help, and Gulf Coast camaraderie. All eras welcome; join our next drive.";
+
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: "Houston Land Rovers",
-  description: "",
+  description: siteDescription,
   openGraph: {
     title: "Houston Land Rovers",
-    description: "",
+    description: siteDescription,
     images: [
       {
         url: "/opengraph.png",
