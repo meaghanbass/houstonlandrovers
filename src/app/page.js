@@ -17,7 +17,7 @@ export default function Home() {
         <div className="relative left-1/2 top-1/2 w-max -translate-x-1/2 -translate-y-1/2 text-white">
           <div className="absolute top-3 bottom-1 -left-10 w-4 md:w-5 xl:w-6 bg-[#88A9CB]"></div>
 
-          <h1 className="text-[14vw]! uppercase leading-none!">
+          <h1 className="text-[12vw]! uppercase leading-none!">
             THE GULF&apos;S <br />
             FINEST 4X4s
           </h1>

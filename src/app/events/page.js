@@ -9,9 +9,9 @@ export default function EventsPage() {
       <h1>Events</h1>
 
       <p className="mt-4">
-        We&apos;re planning some events for the summer. Check back soon for more
-        details.
+        We&apos;re planning some events for the Summer 2026.
       </p>
+      <p className="mt-4">Check back soon for more details.</p>
     </div>
   );
 }
