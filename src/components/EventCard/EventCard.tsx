@@ -1,4 +1,11 @@
-const EventCard = ({ title, date, location, description }) => {
+type EventCardProps = {
+  title: string;
+  date: string;
+  location: string;
+  description: string;
+};
+
+const EventCard = ({ title, date, location, description }: EventCardProps) => {
   return (
     <div className="border border-gray-300 p-4">
       <h4 className="text-lg font-bold mb-2">{title}</h4>

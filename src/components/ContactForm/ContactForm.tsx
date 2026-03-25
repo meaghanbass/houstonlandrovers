@@ -1,13 +1,18 @@
 "use client";
 
 import { useForm } from "@formspree/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Button from "@/components/Button/Button";
 import Input, { fieldErrorClass } from "@/components/Input/Input";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function contactFormComplete(email, message) {
+type ContactFields = {
+  email: string;
+  message: string;
+};
+
+function contactFormComplete(email: string, message: string) {
   return (
     email.trim().length > 0 &&
     EMAIL_RE.test(email.trim()) &&
@@ -15,22 +20,34 @@ function contactFormComplete(email, message) {
   );
 }
 
-export default function ContactForm({ idPrefix = "", className = "" }) {
-  const pid = (name) => (idPrefix ? `${idPrefix}${name}` : name);
-  const [state, handleSubmit] = useForm("xpqykkgb");
-  const [clientErrors, setClientErrors] = useState({});
+type ContactFormProps = {
+  idPrefix?: string;
+  className?: string;
+};
+
+export default function ContactForm({
+  idPrefix = "",
+  className = "",
+}: ContactFormProps) {
+  const pid = (name: string) => (idPrefix ? `${idPrefix}${name}` : name);
+  const [state, handleSubmit] = useForm<ContactFields>("xpqykkgb");
+  const [clientErrors, setClientErrors] = useState<
+    Partial<Record<keyof ContactFields, string>>
+  >({});
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const formWrapRef = useRef(null);
+  const formWrapRef = useRef<HTMLDivElement>(null);
 
   const canSubmit = contactFormComplete(email, message) && !state.submitting;
 
+  const errors = state.errors;
+
   const hasAnyError =
     Object.keys(clientErrors).length > 0 ||
-    (state.errors &&
-      (state.errors.getFormErrors?.()?.length > 0 ||
-        state.errors.getFieldErrors?.("email")?.length ||
-        state.errors.getFieldErrors?.("message")?.length));
+    (errors &&
+      (errors.getFormErrors().length > 0 ||
+        (errors.getFieldErrors("email")?.length ?? 0) > 0 ||
+        (errors.getFieldErrors("message")?.length ?? 0) > 0));
 
   useEffect(() => {
     if (!hasAnyError) return;
@@ -48,13 +65,14 @@ export default function ContactForm({ idPrefix = "", className = "" }) {
     );
   }
 
-  async function onSubmit(e) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    const em = String(form.email?.value ?? "").trim();
-    const msg = String(form.message?.value ?? "").trim();
+    const fd = new FormData(form);
+    const em = String(fd.get("email") ?? "").trim();
+    const msg = String(fd.get("message") ?? "").trim();
 
-    const next = {};
+    const next: Partial<Record<keyof ContactFields, string>> = {};
     if (!em) next.email = "Please enter your email address.";
     else if (!EMAIL_RE.test(em))
       next.email = "Please enter a valid email address.";
@@ -68,16 +86,15 @@ export default function ContactForm({ idPrefix = "", className = "" }) {
   }
 
   const formLevel =
-    state.errors
-      ?.getFormErrors?.()
-      ?.map((x) => x.message)
+    errors
+      ?.getFormErrors()
+      .map((x) => x.message)
       .join(" ") || "";
 
   const errEmail =
-    clientErrors.email || state.errors?.getFieldErrors?.("email")?.[0]?.message;
+    clientErrors.email || errors?.getFieldErrors("email")?.[0]?.message;
   const errMessage =
-    clientErrors.message ||
-    state.errors?.getFieldErrors?.("message")?.[0]?.message;
+    clientErrors.message || errors?.getFieldErrors("message")?.[0]?.message;
 
   return (
     <div ref={formWrapRef} className={className}>

@@ -1,6 +1,12 @@
 import Image from "next/image";
 
-const Logo = ({ withImage = false, theme = "black", className }) => {
+type LogoProps = {
+  withImage?: boolean;
+  theme?: "black" | "white";
+  className?: string;
+};
+
+const Logo = ({ withImage = false, theme = "black", className = "" }: LogoProps) => {
   return (
     <div className={`cursor-pointer ${className}`}>
       {withImage && (
