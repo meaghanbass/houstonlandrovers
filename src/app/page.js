@@ -1,5 +1,5 @@
 import Image from "next/image";
-import HomeRegisterModal from "@/components/HomeRegisterModal/HomeRegisterModal";
+import RegistrationButtonModal from "@/components/RegistrationButtonModal/RegistrationButtonModal";
 
 export default function Home() {
   return (
@@ -77,7 +77,7 @@ export default function Home() {
               and events in the Houston area.
             </p>
 
-            <HomeRegisterModal />
+            <RegistrationButtonModal />
           </div>
         </div>
       </section>

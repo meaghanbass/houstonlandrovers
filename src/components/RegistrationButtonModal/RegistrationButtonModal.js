@@ -5,7 +5,7 @@ import Button from "@/components/Button/Button";
 import Modal from "@/components/Modal/Modal";
 import RegistrationForm from "@/components/RegistrationForm/RegistrationForm";
 
-export default function HomeRegisterModal() {
+export default function RegistrationButtonModal() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
