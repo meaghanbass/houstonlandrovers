@@ -74,7 +74,12 @@ const RegistrationForm = ({ idPrefix = "", className = "" }) => {
   }, [hasAnyError, clientErrors, state.errors]);
 
   if (state.succeeded) {
-    return <p>Thanks for joining!</p>;
+    return (
+      <p className="pr-6">
+        Glad to have you with us! You&apos;ll be the first to know about
+        upcoming meetups and events in the Houston area.
+      </p>
+    );
   }
 
   async function onSubmit(e) {

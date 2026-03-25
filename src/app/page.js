@@ -1,4 +1,5 @@
 import Image from "next/image";
+import HomeRegisterModal from "@/components/HomeRegisterModal/HomeRegisterModal";
 
 export default function Home() {
   return (
@@ -53,6 +54,30 @@ export default function Home() {
               width={500}
               height={400}
             />
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-6 md:mx-8 xl:max-w-[1300px] xl:mx-auto py-20 md:py-32">
+        <div className="relative h-[400px] p-8 text-center">
+          <Image
+            src="/topo-bg.jpg"
+            alt=""
+            role="presentation"
+            width={1000}
+            height={400}
+            className="absolute inset-0 h-full w-full object-cover rounded-lg"
+          />
+
+          <div className="relative flex flex-col justify-center items-center gap-6 w-full h-full">
+            <h2>Join the Convoy</h2>
+
+            <p className="font-bold text-black! text-balance">
+              Membership is completely free. Get a heads up on upcoming meetups
+              and events in the Houston area.
+            </p>
+
+            <HomeRegisterModal />
           </div>
         </div>
       </section>

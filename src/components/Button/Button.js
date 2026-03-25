@@ -11,7 +11,7 @@ const Button = forwardRef(function Button(
       ref={ref}
       type={type}
       disabled={disabled}
-      className={`bg-black text-white px-4 py-2 rounded-xs disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+      className={`bg-black text-white px-4 py-2 rounded-xs cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
       {...rest}
     >
       {children}

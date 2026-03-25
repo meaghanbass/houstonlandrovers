@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 
 function CloseIcon() {
   return (
@@ -22,9 +23,10 @@ function CloseIcon() {
 }
 
 /**
- * Reusable modal: backdrop, panel, close control, Escape to close.
- * Body scroll: parent should set `overflow: hidden` on `body` when open if needed
- * (e.g. when stacking with a mobile menu).
+ * Reusable modal: rendered with a portal to `document.body` so it escapes
+ * parent stacking contexts and overflow. Backdrop, panel, close control,
+ * Escape to close. Body scroll: parent should set `overflow: hidden` on
+ * `document.body` when open if needed (e.g. when stacking with a mobile menu).
  */
 export default function Modal({
   open,
@@ -46,9 +48,9 @@ export default function Modal({
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose, closeOnEscape]);
 
-  if (!open) return null;
+  if (!open || typeof document === "undefined") return null;
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-200 flex items-center justify-center p-4 md:p-6"
       role="dialog"
@@ -80,6 +82,7 @@ export default function Modal({
           {children}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
