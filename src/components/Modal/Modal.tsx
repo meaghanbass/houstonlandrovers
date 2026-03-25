@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 function CloseIcon() {
@@ -22,6 +22,18 @@ function CloseIcon() {
   );
 }
 
+type ModalProps = {
+  open: boolean;
+  onClose: () => void;
+  children: ReactNode;
+  id?: string;
+  ariaLabelledBy?: string;
+  backdropAriaLabel?: string;
+  panelClassName?: string;
+  contentClassName?: string;
+  closeOnEscape?: boolean;
+};
+
 /**
  * Reusable modal: rendered with a portal to `document.body` so it escapes
  * parent stacking contexts and overflow. Backdrop, panel, close control,
@@ -38,10 +50,10 @@ export default function Modal({
   panelClassName = "",
   contentClassName = "",
   closeOnEscape = true,
-}) {
+}: ModalProps) {
   useEffect(() => {
     if (!open || !closeOnEscape) return;
-    const onKey = (e) => {
+    const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", onKey);

@@ -1,10 +1,17 @@
-export const metadata = {
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
   title: "Owner Resources | Houston Land Rovers",
   description:
     "Resources for Houston Land Rovers club members and vehicle owners.",
 };
 
-const localShops = [
+type ResourceLink = {
+  name: string;
+  url: string;
+};
+
+const localShops: ResourceLink[] = [
   {
     name: "Motorcars Ltd",
     url: "https://www.motorcars-service.com",
@@ -19,7 +26,7 @@ const localShops = [
   },
 ];
 
-const onlineParts = [
+const onlineParts: ResourceLink[] = [
   {
     name: "Rovers North",
     url: "https://www.roversnorth.com",
@@ -104,7 +111,7 @@ export default function OwnerResourcesPage() {
 
       <h3 className="mt-8 mb-4">Local Shops, Services, & Restorations</h3>
 
-      {localShops?.map((shop) => (
+      {localShops.map((shop) => (
         <p key={shop.name} className="mb-2">
           <a
             className="link"
@@ -119,7 +126,7 @@ export default function OwnerResourcesPage() {
 
       <h3 className="mt-8 mb-4">Online Parts & Accessories</h3>
 
-      {onlineParts?.map((part) => (
+      {onlineParts.map((part) => (
         <p key={part.name} className="mb-2">
           <a
             className="link"

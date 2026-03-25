@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+import type { Metadata } from "next";
 import { Barlow_Condensed } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/Header/Header";
@@ -16,7 +18,7 @@ const siteUrl =
 const siteDescription =
   "Houston-area club for Land Rover owners — trail runs, meetups, tech help, and Gulf Coast camaraderie. All eras welcome; join our next drive.";
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Houston Land Rovers",
   description: siteDescription,
@@ -32,7 +34,11 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: ReactNode;
+}>) {
   return (
     <html lang="en">
       <body className={`${barlowCondensed.variable} antialiased`}>
