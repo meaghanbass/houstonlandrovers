@@ -1,11 +1,21 @@
 "use client";
 
 import { useForm } from "@formspree/react";
-import { useEffect, useRef, useState } from "react";
+import type { SubmissionError } from "@formspree/core";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Button from "@/components/Button/Button";
 import Input, { fieldErrorClass } from "@/components/Input/Input";
 
-const FIELD_NAMES = [
+type RegistrationFields = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  city: string;
+  vehicle: string;
+  instagram?: string;
+};
+
+const FIELD_NAMES: (keyof RegistrationFields)[] = [
   "firstName",
   "lastName",
   "email",
@@ -16,13 +26,25 @@ const FIELD_NAMES = [
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const REQUIRED_NAMES = ["firstName", "lastName", "email", "city", "vehicle"];
+const REQUIRED_NAMES = [
+  "firstName",
+  "lastName",
+  "email",
+  "city",
+  "vehicle",
+] as const satisfies readonly (keyof RegistrationFields)[];
 
-const REQUIRED_FIELD_STATE = Object.fromEntries(
-  REQUIRED_NAMES.map((k) => [k, ""])
-);
+type RequiredName = (typeof REQUIRED_NAMES)[number];
 
-function requiredFieldsComplete(v) {
+const REQUIRED_FIELD_STATE: Record<RequiredName, string> = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  city: "",
+  vehicle: "",
+};
+
+function requiredFieldsComplete(v: Record<RequiredName, string>) {
   return (
     v.firstName.trim() &&
     v.lastName.trim() &&
@@ -33,36 +55,53 @@ function requiredFieldsComplete(v) {
   );
 }
 
-function fieldMessages(errors, field) {
-  if (!errors || typeof errors.getFieldErrors !== "function") return null;
+function fieldMessages(
+  errors: SubmissionError<RegistrationFields> | null | undefined,
+  field: keyof RegistrationFields
+) {
+  if (!errors) return null;
   const list = errors.getFieldErrors(field);
   if (!list?.length) return null;
   return list.map((e) => e.message).join(", ");
 }
 
-function formMessages(errors) {
-  if (!errors || typeof errors.getFormErrors !== "function") return [];
+function formMessages(
+  errors: SubmissionError<RegistrationFields> | null | undefined
+) {
+  if (!errors) return [];
   return errors.getFormErrors();
 }
 
-function hasServerFieldError(errors) {
+function hasServerFieldError(
+  errors: SubmissionError<RegistrationFields> | null | undefined
+) {
   return FIELD_NAMES.some((f) => fieldMessages(errors, f));
 }
 
-const RegistrationForm = ({ idPrefix = "", className = "" }) => {
-  const pid = (name) => (idPrefix ? `${idPrefix}${name}` : name);
-  const [state, handleSubmit] = useForm("meerpbnj");
-  const [clientErrors, setClientErrors] = useState({});
-  const [requiredValues, setRequiredValues] = useState(() => ({
-    ...REQUIRED_FIELD_STATE,
-  }));
-  const formWrapRef = useRef(null);
+type RegistrationFormProps = {
+  idPrefix?: string;
+  className?: string;
+};
+
+const RegistrationForm = ({
+  idPrefix = "",
+  className = "",
+}: RegistrationFormProps) => {
+  const pid = (name: string) => (idPrefix ? `${idPrefix}${name}` : name);
+  const [state, handleSubmit] = useForm<RegistrationFields>("meerpbnj");
+  const [clientErrors, setClientErrors] = useState<
+    Partial<Record<keyof RegistrationFields, string>>
+  >({});
+  const [requiredValues, setRequiredValues] = useState<
+    Record<RequiredName, string>
+  >(() => ({ ...REQUIRED_FIELD_STATE }));
+  const formWrapRef = useRef<HTMLDivElement>(null);
 
   const canSubmit = requiredFieldsComplete(requiredValues) && !state.submitting;
 
   const hasAnyError =
     Object.keys(clientErrors).length > 0 ||
-    (state.errors && formMessages(state.errors).length > 0) ||
+    formMessages(state.errors).length > 0 ||
     hasServerFieldError(state.errors);
 
   useEffect(() => {
@@ -82,16 +121,17 @@ const RegistrationForm = ({ idPrefix = "", className = "" }) => {
     );
   }
 
-  async function onSubmit(e) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    const firstName = String(form.firstName?.value ?? "").trim();
-    const lastName = String(form.lastName?.value ?? "").trim();
-    const email = String(form.email?.value ?? "").trim();
-    const city = String(form.city?.value ?? "").trim();
-    const vehicle = String(form.vehicle?.value ?? "").trim();
+    const fd = new FormData(form);
+    const firstName = String(fd.get("firstName") ?? "").trim();
+    const lastName = String(fd.get("lastName") ?? "").trim();
+    const email = String(fd.get("email") ?? "").trim();
+    const city = String(fd.get("city") ?? "").trim();
+    const vehicle = String(fd.get("vehicle") ?? "").trim();
 
-    const next = {};
+    const next: Partial<Record<keyof RegistrationFields, string>> = {};
     if (!firstName) next.firstName = "Please enter your first name.";
     if (!lastName) next.lastName = "Please enter your last name.";
     if (!email) next.email = "Please enter your email address.";
@@ -110,7 +150,8 @@ const RegistrationForm = ({ idPrefix = "", className = "" }) => {
 
   const formLevel = formMessages(state.errors);
 
-  const err = (name) => clientErrors[name] || fieldMessages(state.errors, name);
+  const err = (name: keyof RegistrationFields) =>
+    clientErrors[name] || fieldMessages(state.errors, name);
 
   return (
     <div ref={formWrapRef} className={className}>
@@ -121,10 +162,22 @@ const RegistrationForm = ({ idPrefix = "", className = "" }) => {
       <form
         noValidate
         onSubmit={onSubmit}
-        onChange={(e) => {
-          const { name, value } = e.target;
-          if (name && REQUIRED_NAMES.includes(name)) {
-            setRequiredValues((prev) => ({ ...prev, [name]: value }));
+        onChange={(e: FormEvent<HTMLFormElement>) => {
+          const t = e.target;
+          if (
+            !(t instanceof HTMLInputElement) &&
+            !(t instanceof HTMLTextAreaElement)
+          )
+            return;
+          const { name, value } = t;
+          if (
+            name &&
+            (REQUIRED_NAMES as readonly string[]).includes(name)
+          ) {
+            setRequiredValues((prev) => ({
+              ...prev,
+              [name as RequiredName]: value,
+            }));
           }
         }}
         className="flex flex-col gap-4"

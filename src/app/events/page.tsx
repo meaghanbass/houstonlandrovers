@@ -1,12 +1,20 @@
+import type { Metadata } from "next";
 import EventCard from "@/components/EventCard/EventCard";
 import RegistrationButtonModal from "@/components/RegistrationButtonModal/RegistrationButtonModal";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Events | Houston Land Rovers",
   description: "Upcoming meets, drives, and events for Houston Land Rovers.",
 };
 
-const events = [
+type ClubEvent = {
+  title: string;
+  date: string;
+  location: string;
+  description: string;
+};
+
+const events: ClubEvent[] = [
   {
     title: "☕️ Coffee Meetup",
     date: "May 2026 [Date TBD]",

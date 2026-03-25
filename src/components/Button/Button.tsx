@@ -1,9 +1,11 @@
 "use client";
 
-import { forwardRef } from "react";
+import { forwardRef, type ButtonHTMLAttributes } from "react";
 
-const Button = forwardRef(function Button(
-  { type = "button", className, children, disabled, ...rest },
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  { type = "button", className = "", children, disabled, ...rest },
   ref
 ) {
   return (

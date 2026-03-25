@@ -11,7 +11,7 @@ import Logo from "@/components/Logo/Logo";
 const navLinks = [
   { href: "/events/", label: "Events" },
   { href: "/owner-resources/", label: "Owner Resources" },
-];
+] as const;
 
 const HOME_SCROLL_LIGHT_THRESHOLD_PX = 500;
 
@@ -53,7 +53,7 @@ const Header = () => {
   }, [menuOpen, registrationOpen, contactOpen]);
 
   useEffect(() => {
-    const onKey = (e) => {
+    const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMenuOpen(false);
     };
     window.addEventListener("keydown", onKey);
