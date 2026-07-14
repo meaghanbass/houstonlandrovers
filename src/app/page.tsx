@@ -9,7 +9,7 @@ export default function Home() {
         <AnimateInView direction="up" fade>
           <h1>
             Houston
-            <br className="xl:hidden" />
+            <br className="min-[1366px]:hidden" />
             <span className="light text-[#7C7C7C]">LandRovers</span>
           </h1>
         </AnimateInView>
