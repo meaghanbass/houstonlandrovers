@@ -43,13 +43,17 @@ export default function Home() {
       <section className="max-w-8xl mx-auto px-6 py-[90px] md:px-9">
         <div className="relative w-full h-[800px] rounded-[40px] overflow-hidden px-[70px] py-[50px] xl:px-[130px] xl:py-[150px] flex flex-col justify-end">
           <AnimateInView direction="up" fade delay={600}>
-            <Image
-              src="/1955oeoxfordatspeed.jpg"
-              alt="Houston Land Rovers"
-              width={1200}
-              height={800}
-              className="absolute inset-0 w-full h-full object-cover filter-[brightness(50%)]"
-            />
+            <div className="absolute inset-0">
+              <Image
+                src="/1955oeoxfordatspeed.jpg"
+                alt="Houston Land Rovers"
+                width={1200}
+                height={800}
+                className="relative w-full h-full object-cover filter-[brightness(50%)]"
+                preload={true}
+              />
+              <div className="absolute inset-0 w-full h-full bg-[#6A4629] opacity-50"></div>
+            </div>
           </AnimateInView>
 
           <div className="relative flex flex-col gap-[50px] lg:flex-row lg:gap-[100px]">
