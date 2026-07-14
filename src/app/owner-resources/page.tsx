@@ -99,6 +99,25 @@ const onlineParts: ResourceLink[] = [
     name: "Jaguar Land Rover Classic",
     url: "https://parts.jaguarlandroverclassic.com",
   },
+  {
+    name: "OEM Parts Online",
+    url: "https://landrover.oempartsonline.com",
+  },
+  {
+    name: "Lucky 8 Off Road Equipment",
+    url: "https://lucky8llc.com",
+  },
+];
+
+const forums: ResourceLink[] = [
+  {
+    name: "LandRoverForum.com",
+    url: "https://www.landroverworld.org",
+  },
+  {
+    name: "Defender Source",
+    url: "https://www.defendersource.com",
+  },
 ];
 
 const lifestyle: ResourceLink[] = [
@@ -146,6 +165,21 @@ export default function OwnerResourcesPage() {
             rel="noopener noreferrer"
           >
             {part.name}
+          </a>
+        </p>
+      ))}
+
+      <h3 className="mt-8 mb-4">Forums</h3>
+
+      {forums.map((forum) => (
+        <p key={forum.name} className="mb-2">
+          <a
+            className="link"
+            href={forum.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {forum.name}
           </a>
         </p>
       ))}
