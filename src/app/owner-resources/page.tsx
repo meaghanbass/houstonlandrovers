@@ -36,7 +36,7 @@ const onlineParts: ResourceLink[] = [
     url: "https://www.britpart.com",
   },
   {
-    name: "Rover Parts",
+    name: "Atalntic British Ltd.",
     url: "https://www.roverparts.com",
   },
   {
@@ -95,6 +95,17 @@ const onlineParts: ResourceLink[] = [
     name: "Mudstuff",
     url: "https://www.mudstuff.co.uk",
   },
+  {
+    name: "Jaguar Land Rover Classic",
+    url: "https://parts.jaguarlandroverclassic.com",
+  },
+];
+
+const lifestyle: ResourceLink[] = [
+  {
+    name: "Red Canoe Brands",
+    url: "https://redcanoebrands.com/product-category/landrover/",
+  },
 ];
 
 // const otherInformation = [
@@ -135,6 +146,21 @@ export default function OwnerResourcesPage() {
             rel="noopener noreferrer"
           >
             {part.name}
+          </a>
+        </p>
+      ))}
+
+      <h3 className="mt-8 mb-4">Lifestyle</h3>
+
+      {lifestyle.map((lifestyle) => (
+        <p key={lifestyle.name} className="mb-2">
+          <a
+            className="link"
+            href={lifestyle.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {lifestyle.name}
           </a>
         </p>
       ))}

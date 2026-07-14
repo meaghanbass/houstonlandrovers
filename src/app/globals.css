@@ -15,12 +15,16 @@ body {
 h1 {
   font-family: var(--font-inter), "Inter", sans-serif;
   font-weight: 900;
-  font-size: 80px;
+  font-size: 50px;
   letter-spacing: -8%;
   line-height: 1;
   text-transform: uppercase;
 
-  @media (min-width: 850px) {
+  @media (min-width: 768px) {
+    font-size: 80px;
+  }
+
+  @media (min-width: 1024px) {
     font-size: 120px;
   }
 
@@ -46,7 +50,7 @@ h2 {
 h3 {
   font-family: var(--font-inter), "Inter", sans-serif;
   font-weight: 900;
-  font-size: 36px;
+  font-size: 30px;
   line-height: 1;
   letter-spacing: -5%;
   text-transform: uppercase;
@@ -75,7 +79,11 @@ p {
   font-size: 16px;
 
   &.medium {
-    font-size: 17.5px;
+    font-size: 15px;
+
+    @media (min-width: 768px) {
+      font-size: 17.5px;
+    }
   }
 }
 

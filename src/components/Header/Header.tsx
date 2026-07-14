@@ -16,7 +16,7 @@ const navLinks = [
 const HOME_SCROLL_LIGHT_THRESHOLD_PX = 500;
 
 const contactNavClassMobile =
-  "block w-full rounded-md px-3 py-3 text-left text-lg font-semibold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-neutral-100";
+  "block w-full rounded-md px-3 py-3 text-left text-lg font-semibold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-neutral-200";
 
 const Header = () => {
   const pathname = usePathname();
@@ -75,7 +75,7 @@ const Header = () => {
         <Link href="/" className="flex shrink-0 items-center">
           <Logo
             theme={useLightBrand ? "white" : "black"}
-            className="w-[175px] md:w-[200px]"
+            className="w-[160px] md:w-[200px]"
           />
         </Link>
 
@@ -162,30 +162,31 @@ const Header = () => {
       {/* Mobile menu */}
       <div
         id="mobile-nav"
-        className={`fixed inset-0 z-100 md:hidden ${
+        className={`fixed inset-0 z-100 h-screen md:hidden ${
           menuOpen ? "pointer-events-auto" : "pointer-events-none"
         }`}
         aria-hidden={!menuOpen}
       >
         <button
           type="button"
-          className={`absolute inset-0 bg-black/50 transition-opacity duration-200 ${
+          className={`absolute inset-0 transition-opacity duration-200 ${
             menuOpen ? "opacity-100" : "opacity-0"
           }`}
           onClick={() => setMenuOpen(false)}
           aria-label="Close menu"
           tabIndex={menuOpen ? 0 : -1}
         />
+
         <nav
-          className={`absolute right-0 top-0 flex h-full w-[min(100%,20rem)] flex-col border-l border-neutral-200 bg-white shadow-xl transition-transform duration-200 ease-out ${
+          className={`absolute right-0 top-0 flex h-full w-[min(100%,20rem)] flex-col border-l border-neutral-200 bg-[#f4f3f2] shadow-xl transition-transform duration-200 ease-out ${
             menuOpen ? "translate-x-0" : "translate-x-full"
           }`}
           aria-label="Mobile navigation"
         >
-          <div className="flex items-center justify-end border-b border-neutral-100 px-4 py-3">
+          <div className="flex items-center justify-end border-b border-neutral-100 p-6">
             <button
               type="button"
-              className="flex h-10 w-10 items-center justify-center cursor-pointer"
+              className="flex h-10 w-10 items-center justify-center cursor-pointer hover:bg-neutral-200"
               onClick={() => setMenuOpen(false)}
               aria-label="Close menu"
             >
@@ -211,7 +212,7 @@ const Header = () => {
               <li key={href + label}>
                 <Link
                   href={href}
-                  className="block rounded-md px-3 py-3 text-lg font-semibold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-neutral-100"
+                  className="block rounded-md px-3 py-3 text-lg font-semibold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-neutral-200"
                   onClick={() => setMenuOpen(false)}
                 >
                   {label}
