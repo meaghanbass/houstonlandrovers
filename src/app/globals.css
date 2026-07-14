@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #f4f3f2;
   --foreground: #171717;
   --keswick-green-dark: #616c62;
 }
@@ -9,47 +9,60 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-family: var(--font-inter), "Inter", sans-serif;
 }
 
 h1 {
-  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
-  font-weight: 700;
-  font-size: 48px;
-  line-height: 1.2;
+  font-family: var(--font-inter), "Inter", sans-serif;
+  font-weight: 900;
+  font-size: 80px;
+  letter-spacing: -8%;
+  line-height: 1;
+  text-transform: uppercase;
 
-  @media (min-width: 768px) {
-    font-size: 60px;
+  @media (min-width: 850px) {
+    font-size: 120px;
+  }
+
+  .light {
+    font-weight: 100;
+    letter-spacing: -5%;
   }
 }
 
 h2 {
-  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
-  font-weight: 600;
-  font-size: 36px;
-  line-height: 1.2;
+  font-family: var(--font-inter), "Inter", sans-serif;
+  font-weight: 900;
+  font-size: 42px;
+  line-height: 0.92;
+  letter-spacing: -5%;
+  text-transform: uppercase;
 
   @media (min-width: 768px) {
-    font-size: 48px;
+    font-size: 63px;
   }
 }
 
 h3 {
-  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 1.2;
+  font-family: var(--font-inter), "Inter", sans-serif;
+  font-weight: 900;
+  font-size: 36px;
+  line-height: 1;
+  letter-spacing: -5%;
+  text-transform: uppercase;
 
   @media (min-width: 768px) {
-    font-size: 32px;
+    font-size: 63px;
   }
 }
 
 h4 {
-  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
-  font-weight: 500;
+  font-family: var(--font-inter), "Inter", sans-serif;
+  font-weight: 900;
   font-size: 20px;
   line-height: 1.2;
+  letter-spacing: -5%;
+  text-transform: uppercase;
 
   @media (min-width: 768px) {
     font-size: 24px;
@@ -59,9 +72,19 @@ h4 {
 p {
   font-family: var(--font-mono);
   color: var(--color-neutral-600);
+  font-size: 16px;
+
+  &.medium {
+    font-size: 17.5px;
+  }
 }
 
 a.link {
   text-decoration: underline;
   color: var(--keswick-green-dark);
+}
+
+/* Tailwind extenstions: */
+.max-w-8xl {
+  max-width: 1400px;
 }

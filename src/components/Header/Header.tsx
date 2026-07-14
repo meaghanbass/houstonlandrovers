@@ -33,9 +33,10 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [isHome]);
 
-  const useLightBrand = isHome && homeScrollLight;
+  // const useLightBrand = isHome && homeScrollLight;
+  const useLightBrand = false;
   const desktopNavTone = useLightBrand ? "text-white" : "text-black";
-  const desktopNavLinkClass = `font-semibold uppercase opacity-100 transition-opacity hover:opacity-70 ${desktopNavTone}`;
+  const desktopNavLinkClass = `font-bold uppercase opacity-100 transition-opacity hover:opacity-70 ${desktopNavTone}`;
   const desktopNavButtonClass = `${desktopNavLinkClass} cursor-pointer`;
   const [menuOpen, setMenuOpen] = useState(false);
   const [registrationOpen, setRegistrationOpen] = useState(false);
@@ -60,13 +61,17 @@ const Header = () => {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  const isHeaderFixed = false;
+
   return (
     <header
-      className={`fixed top-0 left-0 z-50 w-full transition-colors duration-200 ${
-        useLightBrand ? "bg-transparent" : "bg-white"
+      className={`${
+        isHeaderFixed ? "fixed" : "sticky"
+      } top-0 left-0 z-50 w-full transition-colors duration-200 backdrop-blur-[2px] ${
+        useLightBrand ? "bg-transparent" : "bg-background"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 md:px-10">
+      <div className="flex max-w-8xl mx-auto items-center justify-between p-6 md:p-9">
         <Link href="/" className="flex shrink-0 items-center">
           <Logo
             theme={useLightBrand ? "white" : "black"}
