@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import TrackedExternalLink from "@/components/TrackedExternalLink/TrackedExternalLink";
 
 export const metadata: Metadata = {
   title: "Owner Resources | Houston Land Rovers",
@@ -143,14 +144,11 @@ export default function OwnerResourcesPage() {
 
       {localShops.map((shop) => (
         <p key={shop.name} className="mb-2">
-          <a
-            className="link"
+          <TrackedExternalLink
             href={shop.url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {shop.name}
-          </a>
+            name={shop.name}
+            category="Local Shops, Services, & Restorations"
+          />
         </p>
       ))}
 
@@ -158,14 +156,11 @@ export default function OwnerResourcesPage() {
 
       {onlineParts.map((part) => (
         <p key={part.name} className="mb-2">
-          <a
-            className="link"
+          <TrackedExternalLink
             href={part.url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {part.name}
-          </a>
+            name={part.name}
+            category="Online Parts & Accessories"
+          />
         </p>
       ))}
 
@@ -173,29 +168,23 @@ export default function OwnerResourcesPage() {
 
       {forums.map((forum) => (
         <p key={forum.name} className="mb-2">
-          <a
-            className="link"
+          <TrackedExternalLink
             href={forum.url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {forum.name}
-          </a>
+            name={forum.name}
+            category="Forums"
+          />
         </p>
       ))}
 
       <h3 className="mt-8 mb-4">Lifestyle</h3>
 
-      {lifestyle.map((lifestyle) => (
-        <p key={lifestyle.name} className="mb-2">
-          <a
-            className="link"
-            href={lifestyle.url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {lifestyle.name}
-          </a>
+      {lifestyle.map((item) => (
+        <p key={item.name} className="mb-2">
+          <TrackedExternalLink
+            href={item.url}
+            name={item.name}
+            category="Lifestyle"
+          />
         </p>
       ))}
 

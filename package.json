@@ -6,7 +6,9 @@
     "dev": "next dev --webpack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:mixpanel": "node scripts/check-mixpanel-tracking.mjs",
+    "prepare": "husky"
   },
   "dependencies": {
     "@flags-sdk/vercel": "^1.4.5",
@@ -25,6 +27,7 @@
     "@types/react-dom": "^19.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.1.7",
+    "husky": "^9.1.7",
     "tailwindcss": "^4",
     "typescript": "^5.9.3"
   }

@@ -1,5 +1,6 @@
 "use client";
 
+import mixpanel from "mixpanel-browser";
 import { useEffect, useState } from "react";
 import Button from "@/components/Button/Button";
 import Modal from "@/components/Modal/Modal";
@@ -19,7 +20,10 @@ export default function RegistrationButtonModal() {
     <>
       <Button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setOpen(true);
+          mixpanel.track("Home CTA Register Modal Open");
+        }}
         title="Become a Member"
       >
         Become a Member
@@ -27,7 +31,10 @@ export default function RegistrationButtonModal() {
 
       <Modal
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={() => {
+          setOpen(false);
+          mixpanel.track("Home CTA Register Modal Close");
+        }}
         id="home-registration-dialog"
         ariaLabelledBy="home-reg-heading"
         backdropAriaLabel="Close registration"

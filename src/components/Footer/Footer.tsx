@@ -1,4 +1,13 @@
+"use client";
+
+import mixpanel from "mixpanel-browser";
 import Link from "next/link";
+
+const footerLinks = [
+  { href: "/", label: "Home" },
+  { href: "/events", label: "Events" },
+  { href: "/owner-resources", label: "Owner Resources" },
+] as const;
 
 const Footer = () => {
   return (
@@ -13,9 +22,19 @@ const Footer = () => {
 
       <div>
         <nav className="flex items-center justify-end gap-4 text-right mb-3">
-          <Link href="/">Home</Link>
-          <Link href="/events">Events</Link>
-          <Link href="/owner-resources">Owner Resources</Link>
+          {footerLinks.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              onClick={() =>
+                mixpanel.track("Footer Nav Click", {
+                  "Nav Item": label,
+                })
+              }
+            >
+              {label}
+            </Link>
+          ))}
         </nav>
 
         <p>© 2026 Houston Land Rovers</p>

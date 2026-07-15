@@ -73,7 +73,11 @@ const Header = ({ showEventsAlert }: { showEventsAlert: boolean }) => {
       }`}
     >
       <div className="flex max-w-8xl mx-auto items-center justify-between p-6 md:p-9">
-        <Link href="/" className="flex shrink-0 items-center">
+        <Link
+          href="/"
+          className="flex shrink-0 items-center"
+          onClick={() => mixpanel.track("Header Logo Click")}
+        >
           <Logo
             theme={useLightBrand ? "white" : "black"}
             className="w-[160px] md:w-[200px]"

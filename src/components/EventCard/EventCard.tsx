@@ -1,5 +1,6 @@
 "use client";
 
+import mixpanel from "mixpanel-browser";
 import { downloadIcs } from "@/lib/ical";
 
 export type EventCardProps = {
@@ -43,6 +44,10 @@ const EventCard = ({
 }: EventCardProps) => {
   function handleAddToCalendar() {
     if (!title || !date) return;
+    mixpanel.track("Event Add to Calendar Click", {
+      "Event Title": title,
+      "Event Date": date,
+    });
     downloadIcs({ title, date, time, location, address, description });
   }
 
@@ -83,7 +88,18 @@ const EventCard = ({
       {address && (
         <p className="text-sm text-gray-500">
           <b>Address</b>:{" "}
-          <a href={mapLink} target="_blank" rel="noopener noreferrer">
+          <a
+            href={mapLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() =>
+              mixpanel.track("Event Map Link Click", {
+                "Event Title": title,
+                "Event Address": address,
+                "Map URL": mapLink,
+              })
+            }
+          >
             {address}
           </a>
         </p>
