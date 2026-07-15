@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import MixpanelProvider from "@/components/MixpanelProvider";
 import { eventsAlert } from "@/flags";
 import "./globals.css";
 
@@ -48,14 +49,16 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <Header showEventsAlert={showEventsAlert} />
+        <MixpanelProvider>
+          <Header showEventsAlert={showEventsAlert} />
 
-        <main>
-          {children}
-          <Analytics />
-        </main>
+          <main>
+            {children}
+            <Analytics />
+          </main>
 
-        <Footer />
+          <Footer />
+        </MixpanelProvider>
       </body>
     </html>
   );
