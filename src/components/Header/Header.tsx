@@ -1,5 +1,6 @@
 "use client";
 
+import mixpanel from "mixpanel-browser";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -89,6 +90,11 @@ const Header = ({ showEventsAlert }: { showEventsAlert: boolean }) => {
                 key={href + label}
                 href={href}
                 className={desktopNavLinkClass}
+                onClick={() =>
+                  mixpanel.track("Desktop Header Nav Click", {
+                    "Nav Item": label,
+                  })
+                }
               >
                 {label}
                 {showAlert && showEventsAlert && (
@@ -106,7 +112,10 @@ const Header = ({ showEventsAlert }: { showEventsAlert: boolean }) => {
             <button
               type="button"
               className={desktopNavButtonClass}
-              onClick={() => setContactOpen(true)}
+              onClick={() => {
+                setContactOpen(true);
+                mixpanel.track("Desktop Header Contact Modal Open");
+              }}
             >
               Contact
             </button>
@@ -114,7 +123,10 @@ const Header = ({ showEventsAlert }: { showEventsAlert: boolean }) => {
 
           <button
             type="button"
-            onClick={() => setRegistrationOpen(true)}
+            onClick={() => {
+              setRegistrationOpen(true);
+              mixpanel.track("Desktop Header Register Modal Click");
+            }}
             className={`shrink-0 ${desktopNavButtonClass}`}
           >
             Register
@@ -123,7 +135,10 @@ const Header = ({ showEventsAlert }: { showEventsAlert: boolean }) => {
           <button
             type="button"
             className="flex h-11 w-11 shrink-0 items-center justify-center cursor-pointer md:hidden"
-            onClick={() => setMenuOpen(true)}
+            onClick={() => {
+              setMenuOpen(true);
+              mixpanel.track("Mobile Header Menu Open");
+            }}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             aria-label="Open menu"
@@ -148,7 +163,10 @@ const Header = ({ showEventsAlert }: { showEventsAlert: boolean }) => {
 
       <Modal
         open={registrationOpen}
-        onClose={() => setRegistrationOpen(false)}
+        onClose={() => {
+          setRegistrationOpen(false);
+          mixpanel.track("Desktop Header Register Modal Close");
+        }}
         id="registration-dialog"
         ariaLabelledBy="header-reg-heading"
         backdropAriaLabel="Close registration"
@@ -159,7 +177,10 @@ const Header = ({ showEventsAlert }: { showEventsAlert: boolean }) => {
 
       <Modal
         open={contactOpen}
-        onClose={() => setContactOpen(false)}
+        onClose={() => {
+          setContactOpen(false);
+          mixpanel.track("Desktop Header Contact Modal Close");
+        }}
         id="contact-dialog"
         ariaLabelledBy="header-contact-heading"
         backdropAriaLabel="Close contact form"
@@ -181,7 +202,10 @@ const Header = ({ showEventsAlert }: { showEventsAlert: boolean }) => {
           className={`absolute inset-0 transition-opacity duration-200 ${
             menuOpen ? "opacity-100" : "opacity-0"
           }`}
-          onClick={() => setMenuOpen(false)}
+          onClick={() => {
+            setMenuOpen(false);
+            mixpanel.track("Mobile Header Menu Close");
+          }}
           aria-label="Close menu"
           tabIndex={menuOpen ? 0 : -1}
         />
@@ -196,7 +220,10 @@ const Header = ({ showEventsAlert }: { showEventsAlert: boolean }) => {
             <button
               type="button"
               className="flex h-10 w-10 items-center justify-center cursor-pointer hover:bg-neutral-200"
-              onClick={() => setMenuOpen(false)}
+              onClick={() => {
+                setMenuOpen(false);
+                mixpanel.track("Mobile Header Menu Close");
+              }}
               aria-label="Close menu"
             >
               <svg
@@ -222,7 +249,12 @@ const Header = ({ showEventsAlert }: { showEventsAlert: boolean }) => {
                 <Link
                   href={href}
                   className="relative block rounded-md px-3 py-3 text-lg font-semibold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-neutral-200"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => {
+                    setMenuOpen(false);
+                    mixpanel.track("Mobile Header Nav Click", {
+                      "Nav Item": label,
+                    });
+                  }}
                 >
                   {label}
                   {showAlert && showEventsAlert && (
@@ -244,6 +276,7 @@ const Header = ({ showEventsAlert }: { showEventsAlert: boolean }) => {
                 onClick={() => {
                   setMenuOpen(false);
                   setContactOpen(true);
+                  mixpanel.track("Mobile Header Contact Modal Open");
                 }}
               >
                 Contact

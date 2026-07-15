@@ -11,5 +11,8 @@ export const initMixpanel = () => {
   mixpanel.init(MIXPANEL_TOKEN, {
     autocapture: true,
     record_sessions_percent: 100,
+    track_pageview: true,
+    persistence: "localStorage",
+    record_heatmap_data: true,
   });
 };
