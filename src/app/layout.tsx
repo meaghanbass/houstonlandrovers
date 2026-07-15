@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import { eventsAlert } from "@/flags";
 import "./globals.css";
 
 const inter = Inter({
@@ -37,15 +38,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
+  const showEventsAlert = await eventsAlert();
+
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <Header />
+        <Header showEventsAlert={showEventsAlert} />
 
         <main>
           {children}

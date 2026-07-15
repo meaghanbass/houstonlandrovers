@@ -9,8 +9,8 @@ import Modal from "@/components/Modal/Modal";
 import Logo from "@/components/Logo/Logo";
 
 const navLinks = [
-  { href: "/events/", label: "Events" },
-  { href: "/owner-resources/", label: "Owner Resources" },
+  { href: "/events/", label: "Events", showAlert: true },
+  { href: "/owner-resources/", label: "Owner Resources", showAlert: false },
 ] as const;
 
 const HOME_SCROLL_LIGHT_THRESHOLD_PX = 500;
@@ -18,7 +18,7 @@ const HOME_SCROLL_LIGHT_THRESHOLD_PX = 500;
 const contactNavClassMobile =
   "block w-full rounded-md px-3 py-3 text-left text-lg font-semibold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-neutral-200";
 
-const Header = () => {
+const Header = ({ showEventsAlert }: { showEventsAlert: boolean }) => {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [homeScrollLight, setHomeScrollLight] = useState(true);
@@ -36,7 +36,7 @@ const Header = () => {
   // const useLightBrand = isHome && homeScrollLight;
   const useLightBrand = false;
   const desktopNavTone = useLightBrand ? "text-white" : "text-black";
-  const desktopNavLinkClass = `font-bold uppercase opacity-100 transition-opacity hover:opacity-70 ${desktopNavTone}`;
+  const desktopNavLinkClass = `relative font-bold uppercase opacity-100 transition-opacity hover:opacity-70 ${desktopNavTone}`;
   const desktopNavButtonClass = `${desktopNavLinkClass} cursor-pointer`;
   const [menuOpen, setMenuOpen] = useState(false);
   const [registrationOpen, setRegistrationOpen] = useState(false);
@@ -84,13 +84,22 @@ const Header = () => {
             className="hidden items-center gap-8 md:flex"
             aria-label="Main navigation"
           >
-            {navLinks.map(({ href, label }) => (
+            {navLinks.map(({ href, label, showAlert }) => (
               <Link
                 key={href + label}
                 href={href}
                 className={desktopNavLinkClass}
               >
                 {label}
+                {showAlert && showEventsAlert && (
+                  <span
+                    className="absolute top-0 -right-2 flex h-2 w-2"
+                    aria-hidden
+                  >
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-(--red) opacity-75 [animation-duration:2.5s]" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-(--red)" />
+                  </span>
+                )}
               </Link>
             ))}
 
@@ -208,14 +217,23 @@ const Header = () => {
           </div>
 
           <ul className="flex flex-col gap-1 p-4">
-            {navLinks.map(({ href, label }) => (
+            {navLinks.map(({ href, label, showAlert }) => (
               <li key={href + label}>
                 <Link
                   href={href}
-                  className="block rounded-md px-3 py-3 text-lg font-semibold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-neutral-200"
+                  className="relative block rounded-md px-3 py-3 text-lg font-semibold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-neutral-200"
                   onClick={() => setMenuOpen(false)}
                 >
                   {label}
+                  {showAlert && showEventsAlert && (
+                    <span
+                      className="absolute top-2 left-0 flex h-2 w-2"
+                      aria-hidden
+                    >
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-(--red) opacity-75 [animation-duration:2.5s]" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-(--red)" />
+                    </span>
+                  )}
                 </Link>
               </li>
             ))}
