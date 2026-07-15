@@ -170,10 +170,7 @@ const RegistrationForm = ({
           )
             return;
           const { name, value } = t;
-          if (
-            name &&
-            (REQUIRED_NAMES as readonly string[]).includes(name)
-          ) {
+          if (name && (REQUIRED_NAMES as readonly string[]).includes(name)) {
             setRequiredValues((prev) => ({
               ...prev,
               [name as RequiredName]: value,

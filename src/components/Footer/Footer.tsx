@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col gap-8 max-w-8xl mx-6 md:mx-auto items-start justify-between bg-black text-white rounded-[20px] md:rounded-[40px] p-6 my-6 md:flex-row md:items-center md:p-9 md:my-9">
+    <footer className="flex flex-col gap-8 max-w-8xl mx-6 md:mx-9 2xl:mx-auto items-start justify-between bg-black text-white rounded-[20px] md:rounded-[40px] p-6 my-6 md:flex-row md:items-center md:p-9 md:my-9">
       <div>
         <h4 className="md:mb-3">Houston Land Rovers</h4>
 

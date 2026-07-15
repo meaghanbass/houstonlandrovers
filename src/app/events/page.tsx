@@ -1,24 +1,41 @@
 import type { Metadata } from "next";
 import EventCard from "@/components/EventCard/EventCard";
 import RegistrationButtonModal from "@/components/RegistrationButtonModal/RegistrationButtonModal";
+import type { EventCardProps } from "@/components/EventCard/EventCard";
 
 export const metadata: Metadata = {
   title: "Events | Houston Land Rovers",
   description: "Upcoming meets, drives, and events for Houston Land Rovers.",
 };
 
-type ClubEvent = {
-  title: string;
-  date: string;
-  location: string;
-  description: string;
-};
-
-const events: ClubEvent[] = [
+const events: EventCardProps[] = [
   {
-    title: "☕️ Coffee Meetup",
-    date: "May 2026 [Date TBD]",
-    location: "TBD - Somehwere in the loop",
+    title: "☕️ Coffee & Rovers",
+    date: "July 25th 2026",
+    time: "10:00 AM",
+    location: "Tenfold Coffee Company - Heights",
+    address: "101 Aurora St, Houston, TX 77008",
+    mapLink: "https://maps.app.goo.gl/2YQDQFQDGLtbxi5f9",
+    description:
+      "Join us for a morning of coffee and camaraderie at a local coffee shop. We'll have a chance to chat, share stories, and get to know each other. This is a great opportunity to meet other Land Rover owners and enthusiasts in the Houston area.",
+  },
+  {
+    title: "☕️ Coffee & Rovers",
+    date: "August 8th 2026",
+    time: "10:00 AM",
+    location: "Tiny's Milk & Cookies - West U",
+    address: "3636 Rice Boulevard, Houston, TX 77005",
+    mapLink: "https://maps.app.goo.gl/C7mvTgSBchcRUyEUA",
+    description:
+      "Join us for a morning of coffee and camaraderie at a local coffee shop. We'll have a chance to chat, share stories, and get to know each other. This is a great opportunity to meet other Land Rover owners and enthusiasts in the Houston area.",
+  },
+  {
+    title: "☕️ Coffee & Rovers",
+    date: "August 22nd 2026",
+    time: "10:00 AM",
+    location: "Campesino Coffee",
+    address: "2602 Waugh Dr, Houston, TX 77006",
+    mapLink: "https://maps.app.goo.gl/RjVxo1WnExitSwDz6",
     description:
       "Join us for a morning of coffee and camaraderie at a local coffee shop. We'll have a chance to chat, share stories, and get to know each other. This is a great opportunity to meet other Land Rover owners and enthusiasts in the Houston area.",
   },
@@ -31,7 +48,7 @@ export default function EventsPage() {
         <h1>Events</h1>
 
         <p className="mt-4">
-          We&apos;re currently planning some events for Summer 2026.
+          We&apos;re currently planning some events for Summer/Fall 2026.
         </p>
 
         <p className="mt-4">
@@ -52,11 +69,11 @@ export default function EventsPage() {
 
       <hr className="my-10 border-gray-300" />
 
-      <h2 className="mt-8">Upcoming Events</h2>
+      <h3 className="mt-8">Upcoming Events</h3>
 
       <ul className="mt-4">
-        {events.map((event) => (
-          <li key={event.title}>
+        {events.map((event, i) => (
+          <li key={i}>
             <EventCard {...event} />
           </li>
         ))}

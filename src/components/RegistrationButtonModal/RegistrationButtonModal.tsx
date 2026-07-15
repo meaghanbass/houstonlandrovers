@@ -21,7 +21,6 @@ export default function RegistrationButtonModal() {
         type="button"
         onClick={() => setOpen(true)}
         title="Become a Member"
-        className="text-xl"
       >
         Become a Member
       </Button>
