@@ -6,7 +6,11 @@ type LogoProps = {
   className?: string;
 };
 
-const Logo = ({ withImage = false, theme = "black", className = "" }: LogoProps) => {
+const Logo = ({
+  withImage = false,
+  theme = "black",
+  className = "",
+}: LogoProps) => {
   return (
     <div className={`cursor-pointer ${className}`}>
       {withImage && (
@@ -21,7 +25,7 @@ const Logo = ({ withImage = false, theme = "black", className = "" }: LogoProps)
 
       {theme === "black" ? (
         <Image
-          src="/logo-text-black.svg"
+          src="/logo-tests/v3-3-black.svg"
           alt="Houston Land Rovers"
           width={365}
           height={58}
