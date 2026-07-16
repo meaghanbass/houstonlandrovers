@@ -44,18 +44,16 @@ const EventCard = ({
   mapLink,
   description,
 }: EventCardProps) => {
-  function trackAddToCalendar() {
+  function handleAddToCalendar() {
     if (!title || !date) return;
     mixpanel.track("Event Add to Calendar Click", {
       "Event Title": title,
       "Event Date": date,
     });
-  }
 
-  function handleAddToCalendar() {
-    if (!title || !date) return;
-    trackAddToCalendar();
-    downloadIcs({ title, date, time, location, address, description });
+    if (!calendarSlug) {
+      downloadIcs({ title, date, time, location, address, description });
+    }
   }
 
   return (
@@ -68,7 +66,7 @@ const EventCard = ({
           (calendarSlug ? (
             <a
               href={`/events/calendar/${calendarSlug}.ics`}
-              onClick={trackAddToCalendar}
+              onClick={handleAddToCalendar}
               className="shrink-0 text-gray-500 transition-colors cursor-pointer hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
               aria-label={`Add ${title} to calendar`}
               title="Add to calendar"
