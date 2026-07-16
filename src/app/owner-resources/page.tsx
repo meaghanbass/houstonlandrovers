@@ -25,6 +25,10 @@ const localShops: ResourceLink[] = [
     name: "Royal Street Rovers",
     url: "https://royalstreetrovers.com",
   },
+  {
+    name: "Dry Ice Detailing Pros",
+    url: "https://dryicedetailingpros.com",
+  },
 ];
 
 const onlineParts: ResourceLink[] = [
