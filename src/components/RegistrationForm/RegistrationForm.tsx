@@ -5,6 +5,7 @@ import type { SubmissionError } from "@formspree/core";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import Button from "@/components/Button/Button";
 import Input, { fieldErrorClass } from "@/components/Input/Input";
+import { subscribeToKlaviyoClient } from "@/lib/subscribeToKlaviyoClient";
 
 type RegistrationFields = {
   firstName: string;
@@ -130,6 +131,7 @@ const RegistrationForm = ({
     const email = String(fd.get("email") ?? "").trim();
     const city = String(fd.get("city") ?? "").trim();
     const vehicle = String(fd.get("vehicle") ?? "").trim();
+    const instagram = String(fd.get("instagram") ?? "").trim();
 
     const next: Partial<Record<keyof RegistrationFields, string>> = {};
     if (!firstName) next.firstName = "Please enter your first name.";
@@ -145,6 +147,15 @@ const RegistrationForm = ({
     if (Object.keys(next).length > 0) return;
 
     setClientErrors({});
+    void subscribeToKlaviyoClient({
+      email,
+      firstName,
+      lastName,
+      city,
+      vehicle,
+      instagram: instagram || undefined,
+      source: "registration",
+    });
     await handleSubmit(e);
   }
 

@@ -4,6 +4,7 @@ import { useForm } from "@formspree/react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import Button from "@/components/Button/Button";
 import Input, { fieldErrorClass } from "@/components/Input/Input";
+import { subscribeToKlaviyoClient } from "@/lib/subscribeToKlaviyoClient";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -82,6 +83,11 @@ export default function ContactForm({
     if (Object.keys(next).length > 0) return;
 
     setClientErrors({});
+    void subscribeToKlaviyoClient({
+      email: em,
+      message: msg,
+      source: "contact",
+    });
     await handleSubmit(e);
   }
 
