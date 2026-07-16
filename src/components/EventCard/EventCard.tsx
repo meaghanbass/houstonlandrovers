@@ -4,6 +4,7 @@ import mixpanel from "mixpanel-browser";
 import { downloadIcs } from "@/lib/ical";
 
 export type EventCardProps = {
+  calendarSlug?: string;
   title?: string;
   date?: string;
   time?: string;
@@ -34,6 +35,7 @@ function CalendarIcon() {
 }
 
 const EventCard = ({
+  calendarSlug,
   title,
   date,
   time,
@@ -42,12 +44,17 @@ const EventCard = ({
   mapLink,
   description,
 }: EventCardProps) => {
-  function handleAddToCalendar() {
+  function trackAddToCalendar() {
     if (!title || !date) return;
     mixpanel.track("Event Add to Calendar Click", {
       "Event Title": title,
       "Event Date": date,
     });
+  }
+
+  function handleAddToCalendar() {
+    if (!title || !date) return;
+    trackAddToCalendar();
     downloadIcs({ title, date, time, location, address, description });
   }
 
@@ -56,17 +63,29 @@ const EventCard = ({
       <div className="flex items-start justify-between gap-3 mb-2">
         <h5 className="text-lg font-bold">{title}</h5>
 
-        {title && date && (
-          <button
-            type="button"
-            onClick={handleAddToCalendar}
-            className="shrink-0 text-gray-500 transition-colors cursor-pointer hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            aria-label={`Add ${title} to calendar`}
-            title="Add to calendar"
-          >
-            <CalendarIcon />
-          </button>
-        )}
+        {title &&
+          date &&
+          (calendarSlug ? (
+            <a
+              href={`/events/calendar/${calendarSlug}.ics`}
+              onClick={trackAddToCalendar}
+              className="shrink-0 text-gray-500 transition-colors cursor-pointer hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+              aria-label={`Add ${title} to calendar`}
+              title="Add to calendar"
+            >
+              <CalendarIcon />
+            </a>
+          ) : (
+            <button
+              type="button"
+              onClick={handleAddToCalendar}
+              className="shrink-0 text-gray-500 transition-colors cursor-pointer hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+              aria-label={`Add ${title} to calendar`}
+              title="Add to calendar"
+            >
+              <CalendarIcon />
+            </button>
+          ))}
       </div>
 
       <p className="text-sm text-gray-500">

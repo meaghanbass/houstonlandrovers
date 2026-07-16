@@ -89,12 +89,15 @@ export function buildIcsContent({
   return lines.join("\r\n");
 }
 
+export function getIcsFilename(title: string): string {
+  return `${title.replace(/[^\w\s-]/g, "").trim().replace(/\s+/g, "-") || "event"}.ics`;
+}
+
 export function downloadIcs(input: IcalEventInput): boolean {
   const content = buildIcsContent(input);
   if (!content) return false;
 
-  const filename =
-    `${input.title.replace(/[^\w\s-]/g, "").trim().replace(/\s+/g, "-") || "event"}.ics`;
+  const filename = getIcsFilename(input.title);
 
   const blob = new Blob([content], {
     type: "text/calendar;charset=utf-8",
