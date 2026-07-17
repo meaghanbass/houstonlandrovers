@@ -34,7 +34,7 @@ type OwnInputProps = {
   as?: "input" | "textarea";
   id: string;
   name?: string;
-  label: ReactNode;
+  label?: ReactNode;
   required?: boolean;
   htmlRequired?: boolean;
   error?: string | null;
@@ -45,10 +45,7 @@ type OwnInputProps = {
 };
 
 type InputProps = OwnInputProps &
-  Omit<
-    InputHTMLAttributes<HTMLInputElement>,
-    keyof OwnInputProps | "ref"
-  >;
+  Omit<InputHTMLAttributes<HTMLInputElement>, keyof OwnInputProps | "ref">;
 
 const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
   function Input(
@@ -99,10 +96,12 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
           className ? `flex flex-col gap-2 ${className}` : "flex flex-col gap-2"
         }
       >
-        <label htmlFor={id} className="font-mono text-sm">
-          {label}
-          {required ? <RequiredAsterisk /> : null}
-        </label>
+        {label && (
+          <label htmlFor={id} className="font-mono text-sm">
+            {label}
+            {required ? <RequiredAsterisk /> : null}
+          </label>
+        )}
         {as === "textarea" ? (
           <textarea
             ref={ref as Ref<HTMLTextAreaElement>}

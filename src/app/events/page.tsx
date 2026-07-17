@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import EventCard from "@/components/EventCard/EventCard";
+import InviteForm from "@/components/InviteForm/InviteForm";
 import RegistrationButtonModal from "@/components/RegistrationButtonModal/RegistrationButtonModal";
 import { events } from "@/data/events";
 
@@ -45,6 +46,8 @@ export default function EventsPage() {
           </li>
         ))}
       </ul>
+
+      <InviteForm />
     </div>
   );
 }

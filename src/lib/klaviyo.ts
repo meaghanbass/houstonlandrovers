@@ -21,6 +21,67 @@ async function readKlaviyoError(res: Response) {
   }
 }
 
+type InviteEventPayload = {
+  email: string;
+  registrationUrl: string;
+};
+
+/**
+ * Record a one-time invitation event for an email address.
+ *
+ * This intentionally does not subscribe the recipient to marketing. A Klaviyo
+ * flow triggered by this metric is responsible for sending the invitation.
+ */
+export async function createInviteEvent({
+  email,
+  registrationUrl,
+}: InviteEventPayload) {
+  const apiKey = process.env.KLAVIYO_PRIVATE_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("Missing KLAVIYO_PRIVATE_API_KEY environment variable.");
+  }
+
+  const eventRes = await fetch(`${KLAVIYO_API_BASE}/events/`, {
+    method: "POST",
+    headers: klaviyoHeaders(apiKey),
+    body: JSON.stringify({
+      data: {
+        type: "event",
+        attributes: {
+          properties: {
+            registration_url: registrationUrl,
+            source: "events_page_invite",
+          },
+          metric: {
+            data: {
+              type: "metric",
+              attributes: {
+                name: "Invited to Houston Land Rovers",
+              },
+            },
+          },
+          profile: {
+            data: {
+              type: "profile",
+              attributes: {
+                email: email.trim().toLowerCase(),
+              },
+            },
+          },
+          unique_id: crypto.randomUUID(),
+        },
+      },
+    }),
+  });
+
+  if (!eventRes.ok) {
+    throw new Error(
+      `Klaviyo create-event failed (${eventRes.status}): ${await readKlaviyoError(eventRes)}`
+    );
+  }
+}
+
 /** Upsert profile properties, then subscribe the email to the configured list. */
 export async function upsertAndSubscribeProfile(
   payload: KlaviyoSubscribePayload
